@@ -27,8 +27,18 @@ def orden(lista):
     if len(lista)<=1:
         return lista
     else:
-        pivote=[0][1]
-        menor=[x for x in lista[1:] if x[1]<pivote]
-        igual=[x for x in lista if x[1]==pivote]
-        mayor=[x for x in lista[1:] if x[1]>pivote]
+        pivote=lista[0]
+        menor=[x for x in lista[1:] if x.nombre.lower()<pivote.nombre.lower()]
+        igual=[x for x in lista if x.nombre.lower()==pivote.nombre.lower()]
+        mayor=[x for x in lista[1:] if x.nombre.lower()>pivote.nombre.lower()]
+        return orden(menor)+igual+orden(mayor)
 
+def ordenPoredad(lista):
+    if len(lista)<=1:
+        return lista
+    else:
+        pivote=lista[0]
+        menor = [x for x in lista[1:] if x.edad<pivote.edad]
+        igual=[x for x in lista if x.edad==pivote.edad]
+        mayor=[x for x in lista[1:] if x.edad>pivote.edad]
+        return ordenPoredad(menor)+igual+ordenPoredad(mayor)
