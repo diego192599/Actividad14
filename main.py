@@ -38,6 +38,13 @@ def agregar_participantes():
             "edad": edad,
             "categoria":categoria
         }
+        participantes.append(participante)
+        print("Participantes agregados correctamente")
+
+def mostrar_participantes(lista):
+    for p in lista:
+        print(f"- {p['nombre']} (Dorsal {p['dorsal']}, Edad {p['edad']}, Categoría: {p['categoria']})")
+
 while True:
     print("---Menu---")
     print("1. Agregar participantes")
@@ -47,11 +54,13 @@ while True:
     opcion=input("Seleccione una opcion: ")
     match opcion:
         case "1":
-            agregar()
+            agregar_participantes()
         case "2":
-            orden()
+            quicksort_nombre()
+            mostrar_participantes()
         case "3":
-            ordenPoredad()
+             quicksort_edad()
+             mostrar_participantes()
         case "4":
             print("Saliendo de registro de corredores")
             break
