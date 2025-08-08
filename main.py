@@ -1,44 +1,59 @@
+def quicksort_nombre(lista):
+    if len(lista) <= 1:
+        return lista
+    else:
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x["nombre"].lower() < pivote["nombre"].lower()]
+        iguales = [x for x in lista if x["nombre"].lower() == pivote["nombre"].lower()]
+        mayores = [x for x in lista[1:] if x["nombre"].lower() > pivote["nombre"].lower()]
+        return quicksort_nombre(menores) + iguales + quicksort_nombre(mayores)
 
-class Participantes:
-    def __init__(self,dorsal,nombre,edad,categoria):
-        if not dorsal or not nombre or edad < 0 or not categoria:
-            raise ValueError("Datos no válidos")
-        self.dorsal=dorsal
-        self.nombre=nombre
-        self.edad=edad
-        self.categoria=categoria
-    def __str__(self):
-        return (f"{self.dorsal}- Nombre: {self.nombre}- Edad: {self.edad} y Categoria: {self.categoria}")
+def quicksort_edad(lista):
+    if len(lista) <= 1:
+        return lista
+    else:
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x["edad"] < pivote["edad"]]
+        iguales = [x for x in lista if x["edad"] == pivote["edad"]]
+        mayores = [x for x in lista[1:] if x["edad"] > pivote["edad"]]
+        return quicksort_edad(menores) + iguales + quicksort_edad(mayores)
 
-participante=[]
-
-def agregar():
-    cantidad = int(input("Ingrese la cantidad de corredores que habran: "))
+participantes=[]
+def agregar_participantes():
+    cantidad = int(input("¿Cuántos participantes desea agregar? "))
     for i in range(cantidad):
-        print(f"Ingrese datos de corredor #{i + 1} ")
-        dorsal = input("Ingrese su dorsal: ")
-        nombre = input("Ingrese su nombre completo: ")
-        edad = int(input("Ingrese su edad: "))
-        categoria = input("Ingrese la categoria donde competira: ")
-        participantes=Participantes(dorsal,nombre,edad,categoria)
-        participante.append(participantes)
-
-def orden(lista):
-    if len(lista)<=1:
-        return lista
-    else:
-        pivote=lista[0]
-        menor=[x for x in lista[1:] if x.nombre.lower()<pivote.nombre.lower()]
-        igual=[x for x in lista if x.nombre.lower()==pivote.nombre.lower()]
-        mayor=[x for x in lista[1:] if x.nombre.lower()>pivote.nombre.lower()]
-        return orden(menor)+igual+orden(mayor)
-
-def ordenPoredad(lista):
-    if len(lista)<=1:
-        return lista
-    else:
-        pivote=lista[0]
-        menor = [x for x in lista[1:] if x.edad<pivote.edad]
-        igual=[x for x in lista if x.edad==pivote.edad]
-        mayor=[x for x in lista[1:] if x.edad>pivote.edad]
-        return ordenPoredad(menor)+igual+ordenPoredad(mayor)
+        print(f"\nParticipante #{i + 1}")
+        while True:
+            dorsal = input("Número de dorsal: ")
+            if any(p["dorsal"] == dorsal for p in participantes):
+                print("Ese dorsal ya está registrado. Ingrese uno diferente.")
+            else:
+                break
+        nombre = input("Nombre completo: ")
+        edad = int(input("Edad: "))
+        categoria = input("Categoría (juvenil, adulto, máster): ")
+        participante={
+            "dorsal": dorsal,
+            "nombre":nombre,
+            "edad": edad,
+            "categoria":categoria
+        }
+while True:
+    print("---Menu---")
+    print("1. Agregar participantes")
+    print("2. Mostrar orden de participantes por nombre")
+    print("3. Mostrar oreden de participnates por edad")
+    print("4. Salir")
+    opcion=input("Seleccione una opcion: ")
+    match opcion:
+        case "1":
+            agregar()
+        case "2":
+            orden()
+        case "3":
+            ordenPoredad()
+        case "4":
+            print("Saliendo de registro de corredores")
+            break
+        case "_":
+            print("Opcion no valida vuelva a intentar")
