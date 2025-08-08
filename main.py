@@ -23,5 +23,14 @@ class Participantes:
                 "edad":edad,
                 "categoria":categoria
             }
+    def Ordenar(self):
+        def Quick(lista):
+            if len(lista)<=1:
+                return lista
+            else:
+                pivote=[0][1]
+                menor=[x for x in lista[1:] if x[1] <pivote]
+                igual=[x for x in lista if x[1]==pivote]
+                mayor=[x for x in lista[1:] if x[1]<pivote]
+                return Quick(menor)+igual+Quick(mayor)
 
-    def Ordene
